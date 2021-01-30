@@ -23,7 +23,7 @@ def create_tables():
 jwt = JWT(app, authenticate, identity) # /auth
 
 api.add_resource(Category, '/category/<string:name>')
-api.add_resource(Movie, '/movie/<string:name>')
+api.add_resource(Movie, '/movie/<int:_id>', '/movie/<string:name>')
 api.add_resource(MovieList, '/movie')
 api.add_resource(CategoryList, '/category')
 

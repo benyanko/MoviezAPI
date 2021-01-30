@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.movie import MovieModel
+from models.category import CategoryModel
 
 
 class Movie(Resource):
@@ -22,8 +23,8 @@ class Movie(Resource):
                         help="Every movie needs a video link"
                         )
 
-    def get(self, name):
-        movie = MovieModel.find_by_name(name)
+    def get(self, _id):
+        movie = MovieModel.find_by_id(_id)
         if movie:
             return movie.json()
         return {'message': 'movie not found'}, 404
@@ -35,6 +36,9 @@ class Movie(Resource):
 
         data = Movie.parser.parse_args()
 
+        if CategoryModel.find_by_id(data['category_id']) is None:
+            return {'message': "category not exist"}, 400
+
         movie = MovieModel(name, data['price'], data['video_link'], data['category_id'])
 
         try:
@@ -45,22 +49,22 @@ class Movie(Resource):
         return movie.json(), 201
 
     @jwt_required()
-    def delete(self, name):
-        movie = MovieModel.find_by_name(name)
+    def delete(self, _id):
+        movie = MovieModel.find_by_id(_id)
         if movie:
             movie.delete_from_db()
 
         return {'message': 'movie deleted'}
 
     @jwt_required()
-    def put(self, name):
+    def put(self, _id):
 
         data = Movie.parser.parse_args()
 
-        movie = MovieModel.find_by_name(name)
+        movie = MovieModel.find_by_id(_id)
 
         if movie is None:
-            movie = MovieModel(name, data['price'], data['video_link'], data['category_id'])
+            return {'message': 'movie not found'}, 404
         else:
             movie.price = data['price']
         movie.save_to_db()
