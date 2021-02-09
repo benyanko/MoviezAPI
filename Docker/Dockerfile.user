@@ -1,0 +1,23 @@
+FROM python:3.7
+
+RUN apt-get update -y && \
+    apt-get install -y python-pip python-dev
+
+RUN pip install docker-entrypoint
+
+COPY ./requirements.txt requirements.txt
+
+WORKDIR /MoviezAPI
+
+RUN pip install -r /requirements.txt
+
+ADD ./Gunicorn/guni_user.py /Gunicorn/guni_user.py
+COPY ./UserMicroservice/. /UserMicroservice
+COPY UserMicroservice/models/. /UserMicroservice/models
+COPY UserMicroservice/resource/. /UserMicroservice/resource
+COPY UserMicroservice/setup_user/. /UserMicroservice/setup_user
+
+WORKDIR /UserMicroservice
+
+EXPOSE 5000
+CMD [ "gunicorn", "-c", "../Gunicorn/guni_user.py", "main_user:app" ]

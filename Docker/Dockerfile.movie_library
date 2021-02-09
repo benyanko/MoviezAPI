@@ -1,0 +1,24 @@
+FROM python:3.7
+
+RUN apt-get update -y && \
+    apt-get install -y python-pip python-dev
+
+RUN pip install docker-entrypoint
+
+COPY ./requirements.txt requirements.txt
+
+WORKDIR /MoviezAPI
+
+RUN pip install -r /requirements.txt
+
+ADD ./Gunicorn/guni_movie_library.py /Gunicorn/guni_movie_library.py
+COPY ./MovieLibraryMicroservice/. /MovieLibraryMicroservice
+COPY MovieLibraryMicroservice/movie_library_models/. /MovieLibraryMicroservice/movie_library_models
+COPY MovieLibraryMicroservice/movie_library_resource/. /MovieLibraryMicroservice/movie_library_resource
+COPY MovieLibraryMicroservice/setup_movie_library/. /MovieLibraryMicroservice/setup_movie_library
+
+WORKDIR /MovieLibraryMicroservice
+
+
+EXPOSE 5001
+CMD [ "gunicorn", "-c", "../Gunicorn/guni_movie_library.py", "main_movie_library:app" ]

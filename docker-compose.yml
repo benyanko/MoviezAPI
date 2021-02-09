@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  user:
+    image: user
+    build:
+      context: .
+      dockerfile: './Docker/Dockerfile.user'
+    ports:
+      - "5000:5000"
+  movie_library:
+    image: movie_library
+    build:
+      context: .
+      dockerfile: './Docker/Dockerfile.movie_library'
+    ports:
+      - "5001:5001"
