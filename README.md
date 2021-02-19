@@ -2,6 +2,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Description](#description)
+* [Setup](#setup)
 * [Task list](#task-list)
 
 ## General info
@@ -44,11 +45,20 @@ Additional files:
 * user_db - An abstract object for SQLAlchemy implementation.
 * user_security - Contains authenticate and identity methods for JWT.
 
+## Setup
+To build and run project:
+
+* Navigate (in a terminal) into the ~/MoviezAPI folder.
+* Run ```docker-compose build``` for your first build and when you have made changes.
+* Run ```docker-compose up``` to run all the services.
+
 
 ## Task list
 - [x] JWT
 - [x] Database Relationships
+- [x] Microservice archtucture
 - [x] Docker
+- [x] Gunicorn
 - [ ] Recommender system
 
 
