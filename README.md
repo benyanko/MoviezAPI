@@ -6,7 +6,7 @@
 * [Task list](#task-list)
 
 ## General info
-This project implement Movie library management platform RESTful API using Flask-RESTful, SQLAlchemy and JWT. A simple user can browse the movie library and get information about each movie while an admin user gets permission to manage the movie library when he can add edit and delete movies and categories.
+This project implement Movie library management platform RESTful API using Flask-RESTful, Microservice Architecture, SQLAlchemy, Docker, Gunicorn and JWT. A simple user can browse the movie library and get information about each movie while an admin user gets permission to manage the movie library when he can add edit and delete movies and categories.
 
 ## Description
 Description for each file:
