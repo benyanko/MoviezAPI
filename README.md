@@ -32,7 +32,7 @@ Additional files:
 UserMicroservice:
 
 models:
-* user_model -  UserModel fields are id, name, password,
+* user_model -  UserModel fields are id, name, password.
 
 resource: 
 * user_resource -  Movie implement post HTTP request method. 
